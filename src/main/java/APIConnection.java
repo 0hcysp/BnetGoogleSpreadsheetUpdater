@@ -14,7 +14,7 @@ import org.apache.http.util.EntityUtils;
  * @author psych0
  */
 public class APIConnection {
-    public String getHTML(String urlToRead) {
+    public static String getHTML(String urlToRead) {
      
       String json = "";
       
