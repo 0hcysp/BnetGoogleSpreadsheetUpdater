@@ -21,7 +21,9 @@ import java.util.List;
 import com.google.gson.GsonBuilder;
 import com.google.gson.Gson;
 import com.pojo.*;
-
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import java.lang.*;
 public class SheetsQuickstart {
 
     /**
@@ -107,60 +109,118 @@ public class SheetsQuickstart {
                 .setApplicationName(APPLICATION_NAME)
                 .build();
     }
-    public static String htmlRequest = "https://eu.api.battle.net/wow/character/Gordunni/Вмх?fields=items&locale=ru_RU&apikey=dutdqt7stzxq7uua5ryeqqsp9y3dbxxt";
-    public static String htmlName = "ItemLevel!C35:E";
+    public static int number = 3;
+    
+    public static void saveCharacterItemLevel(String character_name, String html_name) throws IOException 
+{
+	String html_request = "https://eu.api.battle.net/wow/character/Gordunni/"
+		+ character_name + "?fields=items&locale=ru_RU&apikey=dutdqt7stzxq7uua5ryeqqsp9y3dbxxt";
+	// Build a new authorized API client service.
+	Sheets service = getSheetsService();
 
-    public static void main(String[] args) throws IOException {
-        // Build a new authorized API client service.
-        Sheets service = getSheetsService();
-
-        // Prints spreadsheet data:
-        String spreadsheetId = "15PrNFdM8rqrTHX_J07xycsxq3ApngXUPmLeRW88ZvJY";
-        String range = "ItemLevel!A3";
-        ValueRange response = service.spreadsheets().values()
-                .get(spreadsheetId, range)
-                .execute();
-
-        List<List<Object>> values = response.getValues();
-
-        if (values == null || values.size() == 0) {
-            System.out.println("No data found.");
-        } else {
-            //   System.out.println("ItemLvl");
-            for (List row : values) {
-
-                // READ // Print columns A and C, which correspond to indices 0 and 2.
-                try {
-                    System.out.printf("%s, %s\n", row.get(0), row.get(2));
-
-                } catch (IndexOutOfBoundsException op) {
-                    continue;
-                }
-            }
+	// Prints spreadsheet data:
+	String spreadsheetId = "1qUVcXXFcp9Zi6qr1Zj5HGbR-4u6MJGMZyXkie58Qehw";
+	String range = "ItemLevel!A3";
+	ValueRange response = null;
+        try {
+            response = service.spreadsheets().values()
+                    .get(spreadsheetId, range)
+                    .execute();
+        } catch (IOException ex) {
+            Logger.getLogger(SheetsQuickstart.class.getName()).log(Level.SEVERE, null, ex);
         }
 
-//Get info from bnet API 
-        APIConnection APIConnection = new APIConnection();
+	List<List<Object>> values = response.getValues();
 
-        String json = APIConnection.getHTML(htmlRequest);
-        Gson gson = new GsonBuilder().create();
-        Armory armory = gson.fromJson(json, Armory.class);
-        System.out.println(armory.toString());
-        String target = armory.toString();
+	if (values == null || values.size() == 0) {
+		System.out.println("No data found.");
+	}
+	else {
+		//   System.out.println("ItemLvl");
+		for (List row : values) {
 
-// Update spreadsheet
-        values.get(0).set(0, target);
-        BatchUpdateValuesRequest buvr = new BatchUpdateValuesRequest();
+			// READ // Print columns A and C, which correspond to indices 0 and 2.
+			try {
+				System.out.printf("%s, %s\n", row.get(0), row.get(2));
 
-        ValueRange item = new ValueRange();
-        item.setRange(htmlName);
-        item.setValues(values);
-        List<ValueRange> Sheet = new ArrayList<ValueRange>();
-        Sheet.add(item);
-        buvr.setData(Sheet);
-        buvr.setValueInputOption("RAW");
-        BatchUpdateValuesResponse Set = service.spreadsheets().values().batchUpdate(spreadsheetId, buvr).execute();
+			}
+			catch (IndexOutOfBoundsException op) {
+				continue;
+			}
+		}
+	}
 
-        //TO DO LOOP!
+	//Get info from bnet API
+	APIConnection APIConnection = new APIConnection();
+
+	String json = APIConnection.getHTML(html_request);
+	Gson gson = new GsonBuilder().create();
+	Armory armory = gson.fromJson(json, Armory.class);
+	System.out.println(armory.toString());
+	String target = armory.toString();
+
+	// Update spreadsheet
+	values.get(0).set(0, target);
+	BatchUpdateValuesRequest buvr = new BatchUpdateValuesRequest();
+
+	ValueRange item = new ValueRange();
+	item.setRange(html_name);
+	item.setValues(values);
+	List<ValueRange> Sheet = new ArrayList<ValueRange>();
+	Sheet.add(item);
+	buvr.setData(Sheet);
+	buvr.setValueInputOption("RAW");
+        try {
+            BatchUpdateValuesResponse Set = service.spreadsheets().values().batchUpdate(spreadsheetId, buvr).execute();
+        } catch (IOException ex) {
+            Logger.getLogger(SheetsQuickstart.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        
+}
+    public static void main(String[] args) throws IOException {
+        ArrayList<String> raiders = new ArrayList<String>();
+        raiders.add("Даэска");
+        raiders.add("Фордрейн");
+        raiders.add("Арнбьорн");
+        raiders.add("Квистя");
+        raiders.add("Круська");
+        raiders.add("Хорошаяидея");
+        raiders.add("Рончи");
+        raiders.add("Якоо");
+        raiders.add("Даннериэль");
+        raiders.add("Сэбастьян");
+        raiders.add("Чудновскии");
+        raiders.add("Страшилочка");
+        raiders.add("Килила");
+        raiders.add("Опохмелинка");
+        raiders.add("Лайлет");
+        raiders.add("Своии");
+        raiders.add("Кериджейн");
+        raiders.add("Хамочках");
+        raiders.add("Хетэн");
+        raiders.add("Лавстайл");
+        raiders.add("Селинн");
+        raiders.add("Тадароки");
+        raiders.add("Морринт");
+        raiders.add("Месьенитро");
+        raiders.add("Меллания");
+        raiders.add("Кальдорай");
+        raiders.add("Нэрилим");
+        raiders.add("Омикронс");
+        raiders.add("Еракси");
+        raiders.add("Найсилол");
+        raiders.add("Мэнно");
+        raiders.add("Стрим");
+        raiders.add("Вмх");
+        
+        
+        
+              
+        for (String raider:raiders) {
+            String htmlName = "ItemLevel!C"+number+":E";
+            saveCharacterItemLevel(raider, htmlName );
+            number++;
+       }
     }
 }
