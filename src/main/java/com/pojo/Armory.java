@@ -10,65 +10,60 @@ package com.pojo;
  * @author psych0
  */
 public class Armory {
-   
 
-private String name;
+    private String name;
 
-private String realm;
+    private String realm;
 
-private String race;
+    private String race;
 
-private String gender;
+    private String gender;
 
-private Items items;
-    
+    private Items items;
 
+    public String getName() {
+        return name;
+    }
 
-public String getName() {
-return name;
-}
+    public void setName(String name) {
+        this.name = name;
+    }
 
-public void setName(String name) {
-this.name = name;
-}
+    public String getRealm() {
+        return realm;
+    }
 
+    public void setRealm(String realm) {
+        this.realm = realm;
+    }
 
-public String getRealm() {
-return realm;
-}
+    public String getRace() {
+        return race;
+    }
 
-public void setRealm(String realm) {
-this.realm = realm;
-}
+    public void setRace(String race) {
+        this.race = race;
+    }
 
-public String getRace() {
-return race;
-}
+    public String getGen() {
+        return gender;
+    }
 
-public void setRace(String race) {
-this.race = race;
-}
+    public void setGen(String gender) {
+        this.gender = gender;
+    }
 
+    public String getAverageItemLevel() {
+        return items.getAverageItemLevel();
+    }
 
-public String getGen() {
-return gender;
-}
-
-public void setGen(String gender) {
-this.gender = gender;
-}
-
-public String getAverageItemLevel() {
-return items.getAverageItemLevel();
-}
-
-@Override
-public String toString() {
+    @Override
+    public String toString() {
 //return "Armory [name=" + name + ", realm=" + realm
 //+ ", race=" + race + ", gender=" + gender + ", averageItemLevel="
 //+ getAverageItemLevel() + "]";
 
-return getAverageItemLevel();
-}
+        return getAverageItemLevel();
+    }
 
 }
