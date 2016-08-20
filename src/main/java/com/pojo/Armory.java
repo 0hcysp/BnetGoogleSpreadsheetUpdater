@@ -6,7 +6,7 @@
 package com.pojo;
 
 /**
- *
+ *JSON String to JSON Objects
  * @author psych0
  */
 public class Armory {

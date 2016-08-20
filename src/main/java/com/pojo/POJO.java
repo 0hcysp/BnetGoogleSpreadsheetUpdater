@@ -9,10 +9,7 @@ package com.pojo;
  *
  * @author psych0
  */
-/**
- *
- * @author psych0
- */
+@Deprecated
 public class POJO {
 
     public class Armory {

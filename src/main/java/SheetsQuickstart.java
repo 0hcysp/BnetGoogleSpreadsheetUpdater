@@ -24,6 +24,8 @@ import com.pojo.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.lang.*;
+
+
 public class SheetsQuickstart {
 
     /**
@@ -179,6 +181,7 @@ public class SheetsQuickstart {
         
 }
     public static void main(String[] args) throws IOException {
+        //Creating array of users
         ArrayList<String> raiders = new ArrayList<String>();
         raiders.add("Даэска");
         raiders.add("Фордрейн");

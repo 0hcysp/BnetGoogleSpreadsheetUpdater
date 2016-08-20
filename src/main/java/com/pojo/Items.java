@@ -7,7 +7,7 @@ package com.pojo;
  */
 
 /**
- *
+ *JSON String parser for inner json string
  * @author psych0
  */
 public class Items {

@@ -12,7 +12,7 @@ import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.util.EntityUtils;
 
 /**
- *
+ Request builder for battle.net API
  * @author psych0
  */
 public class APIConnection {
@@ -32,7 +32,7 @@ public class APIConnection {
                     json = EntityUtils.toString(entity);
                 }
             } catch (Exception e) {
-                // Oh well... no realms for now
+                
             }
 
             return json;
